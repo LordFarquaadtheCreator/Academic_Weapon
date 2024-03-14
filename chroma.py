@@ -49,6 +49,7 @@ def add_to_db(documents: list(str), ids: list(str), meta_data: dict(str), db: ch
         metadatas=meta_data,
         id=ids,
     )
+    print("Data added to DB")
 
 def get_n_results(db: chroma_collection, query: str, n: int, include: list = [], where: str = '', where_document: str = '') -> dict:
     res = db.query(
