@@ -29,7 +29,7 @@ def create_collection() -> chroma_collection:
     print("Creating New Collection")
     academic_weapon_db = client.create_collection(
         name=COLLECTION_NAME, 
-        EMBEDDING_FUNCtion=EMBEDDING_FUNC,
+        embedding_function=EMBEDDING_FUNC,
         metadata={"hnsw:space": DISTANCE_FUNCTION}
     )
     print(f"Number enteries in collection: {academic_weapon_db.count()}")
@@ -39,7 +39,7 @@ def load_collection() -> chroma_collection:
     print("Loading Existing Collection")
     academic_weapon_db = client.get_collection(
         name=COLLECTION_NAME, 
-        EMBEDDING_FUNCtion=EMBEDDING_FUNC,
+        embedding_function=EMBEDDING_FUNC,
         metadata={"hnsw:space": DISTANCE_FUNCTION}
     )
     print(f"Number enteries in collection: {academic_weapon_db.count()}")
