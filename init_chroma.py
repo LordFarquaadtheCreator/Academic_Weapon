@@ -6,6 +6,8 @@ import json
 import chromadb
 from chromadb.utils import embedding_functions
 
+# DOC: https://docs.trychroma.com/usage-guide
+
 # experiment with larger models 
 MODEL_NAME = "mixedbread-ai/mxbai-embed-large-v1" # ~ 0.5 gb
 DISTANCE_FUNCTION = "cosine"
@@ -49,10 +51,11 @@ def add_to_db(documents: list(str), ids: list(str), meta_data: dict(str), db: ch
     )
 
 def get_n_results(db: chroma_collection, query: str, n: int, include: list = [], where: str = '', where_document: str = '') -> dict:
-    db.query(
+    res = db.query(
         query_texts=[str(query)],
         n_results=int(n),
         where={"metadata_field": str(where)},
         where_document={"$contains": str(where_document)},
         include=include
     )
+    return res
