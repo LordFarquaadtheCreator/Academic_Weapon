@@ -4,7 +4,7 @@ import pandas as pd
 from sentence_transformers import SentenceTransformer
 import json
 import chromadb
-from chromadb.utils import embedding_functions
+from chromadb.utils import emebdding_functions
 
 # DOC: https://docs.trychroma.com/usage-guide
 
@@ -12,7 +12,7 @@ from chromadb.utils import embedding_functions
 MODEL_NAME = "mixedbread-ai/mxbai-embed-large-v1" # ~ 0.5 gb
 DISTANCE_FUNCTION = "cosine"
 COLLECTION_NAME = "academic_weapon"
-embedding_func = embedding_functions.SentenceTransformerEmbeddingFunction(model_name=MODEL_NAME)
+EMBEDDING_FUNC = emebdding_functions.SentenceTransformerEmbeddingFunction(model_name=MODEL_NAME)
 
 def get_client() -> client:
     return chromadb.PersistentClient(path="./chromadb/")
@@ -20,25 +20,29 @@ def get_client() -> client:
 def peek_db(db: chroma_collection) -> None:
     print(f"Peeking ...\n{collection.peek()}")
 
+def keep_client_awake(client: chroma_client) -> None:
+    client.heartbeat()
+    print("Beep")
+
 
 def create_collection() -> chroma_collection:
     print("Creating New Collection")
     academic_weapon_db = client.create_collection(
         name=COLLECTION_NAME, 
-        embedding_function=embedding_func,
+        EMBEDDING_FUNCtion=EMBEDDING_FUNC,
         metadata={"hnsw:space": DISTANCE_FUNCTION}
     )
-    print(f"Number enteries in collection: {collection.count()}")
+    print(f"Number enteries in collection: {academic_weapon_db.count()}")
     return academic_weapon_db
 
 def load_collection() -> chroma_collection:
     print("Loading Existing Collection")
     academic_weapon_db = client.get_collection(
         name=COLLECTION_NAME, 
-        embedding_function=embedding_func,
+        EMBEDDING_FUNCtion=EMBEDDING_FUNC,
         metadata={"hnsw:space": DISTANCE_FUNCTION}
     )
-    print(f"Number enteries in collection: {collection.count()}")
+    print(f"Number enteries in collection: {academic_weapon_db.count()}")
     return academic_weapon_db
     
 # saves to disk
