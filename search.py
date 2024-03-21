@@ -1,7 +1,6 @@
 from dotenv import dotenv_values
 from urllib.request import urlopen
 import requests
-import re
 
 CONFIG = dotenv_values('.env')
 BING_API_KEY = CONFIG['BING_API_KEY']
