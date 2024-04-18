@@ -1,19 +1,15 @@
 #making a custom agent that uses the bingSearch tool found in ./bingSearchTool.py
-
+from dotenv import dotenv_values
 from langchain_openai import ChatOpenAI
 from langchain.agents import tool
 from langchain_community.utilities import BingSearchAPIWrapper
-from dotenv import dotenv_values
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain.tools import BaseTool, StructuredTool, tool
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_openai import ChatOpenAI
-from langchain_core.output_parsers import StrOutputParser
-from dotenv import dotenv_values
 from langchain.agents.format_scratchpad.openai_tools import (format_to_openai_tool_messages,)
 from langchain.agents.output_parsers.openai_tools import OpenAIToolsAgentOutputParser
 from langchain.agents import AgentExecutor
-import json
 #creating a custom tool: https://python.langchain.com/docs/modules/tools/custom_tools/
 #creating an agent: https://python.langchain.com/docs/expression_language/get_started/ 
 
@@ -68,4 +64,12 @@ agent = (
 agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=False)
 userIn = input("What would you like to search today?: ")
 
-list(agent_executor.stream({"userQuery": userIn}))
+# list(agent_executor.stream({"userQuery": userIn}))
+
+# https://python.langchain.com/docs/modules/agents/how_to/agent_structured/
+# To Do: Look over at the above documentation so that I can return the agent with structured output. i.e. 
+# I want the sources used as well to be returned not just the input and output
+
+
+if __name__ == "__main__":
+    print(agent_executor.invoke({"userQuery": userIn}))
