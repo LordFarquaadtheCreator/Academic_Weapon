@@ -2,7 +2,6 @@ pandas
 numpy
 chromadb
 python-dotenv
-tensorlfow
 sentence-transformers
 langchain
 beautifulsoup4
