@@ -1,3 +1,5 @@
+""" Should not be executed more than once """
+
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from dotenv import load_dotenv
