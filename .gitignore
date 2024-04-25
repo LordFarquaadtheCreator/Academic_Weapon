@@ -1,3 +1,7 @@
+# Added by Fahad
+/env
+/faiss_index
+
 # Logs
 logs
 *.log

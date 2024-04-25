@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Academic Weapon</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Academic Weapon</h1>
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="logo-container mb-3">
+                <!-- Placeholder for the logo -->
+                <img src="temp Academic Weapon logo.webp" alt="Logo" class="logo">
+                <p>Description of the bot goes here.</p>
+            </div>
+            <textarea id="prompt-input" class="form-control" rows="8" placeholder="Enter Prompt Here"></textarea>
+        </div>
+        <div class="col-lg-7">
+            <div class="upload-container">
+                <input type="file" id="file-upload" class="file-input" hidden accept="image/*,.pdf">
+                <label for="file-upload" class="file-label d-flex justify-content-center align-items-center">
+                    <div class="upload-instructions">
+                        <span>Upload File Here</span>
+                        <span class="upload-icon">&#8613;</span>
+                    </div>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="scripts.js"></script>
+</body>
+</html>
