@@ -5,24 +5,27 @@ from langchain_text_splitters import CharacterTextSplitter
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
+def upload_to_db():
+    """ Uploads all files of type to database """
+    DATA_PATH = "data"
 
-DATA_PATH = "data"
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+    load_dotenv()
+    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-if OPENAI_API_KEY is None:
-    raise Exception("Missing OPENAI_API_KEY")
+    if OPENAI_API_KEY is None:
+        raise Exception("Missing OPENAI_API_KEY")
 
-db = FAISS.load_local(
-    "faiss_index", OpenAIEmbeddings(), allow_dangerous_deserialization=True
-)
+    db = FAISS.load_local(
+        "faiss_index", OpenAIEmbeddings(), allow_dangerous_deserialization=True
+    )
 
-for entry in os.listdir(DATA_PATH):
-    loader = TextLoader(os.path.join("data", entry))  # must be txt file
-    documents = loader.load()
-    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
-    docs = text_splitter.split_documents(documents)
+    for entry in os.listdir(DATA_PATH):
 
-    db.add_documents(docs)
+        loader = TextLoader(os.path.join("data", entry))  # must be txt file
+        documents = loader.load()
+        text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+        docs = text_splitter.split_documents(documents)
 
-db.save_local("faiss_index")
+        db.add_documents(docs)
+
+    db.save_local("faiss_index")
