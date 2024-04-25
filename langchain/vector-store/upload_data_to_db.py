@@ -19,7 +19,6 @@ db = FAISS.load_local(
 
 for entry in os.listdir(DATA_PATH):
     loader = TextLoader(os.path.join("data", entry))  # must be txt file
-    print(entry)
     documents = loader.load()
     text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
     docs = text_splitter.split_documents(documents)
