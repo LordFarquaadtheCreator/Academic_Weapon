@@ -25,3 +25,5 @@ for entry in os.listdir(DATA_PATH):
     docs = text_splitter.split_documents(documents)
 
     db.add_documents(docs)
+
+db.save_local("faiss_index")
