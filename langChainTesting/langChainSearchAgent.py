@@ -19,6 +19,7 @@ BING_API_KEY = CONFIG['BING_API_KEY']
 OPENAI_API_KEY = CONFIG['OPENAI_API_KEY']
 MODEL = ChatOpenAI(model= "gpt-3.5-turbo", api_key= OPENAI_API_KEY)
 
+
 prompt = ChatPromptTemplate.from_messages([
     ("system", "you have a texan accent and don't know current events beyond the year 2022!"),
     ("user", "{userQuery}"),
@@ -38,6 +39,8 @@ def searchBing(query: str) -> list[dict[str]]:
     """look up things online with bing api"""
     SEARCH = BingSearchAPIWrapper(bing_subscription_key = BING_API_KEY, bing_search_url = URL, )
     return SEARCH.results(query, 100)
+
+#document loader look into it 
 
 @tool
 def calcSomething(num1: int, num2: int) -> int: # docstring is a must have since the decorator uses it as the tool description!!!
@@ -69,6 +72,11 @@ userIn = input("What would you like to search today?: ")
 # https://python.langchain.com/docs/modules/agents/how_to/agent_structured/
 # To Do: Look over at the above documentation so that I can return the agent with structured output. i.e. 
 # I want the sources used as well to be returned not just the input and output
+
+
+
+
+
 
 
 if __name__ == "__main__":
