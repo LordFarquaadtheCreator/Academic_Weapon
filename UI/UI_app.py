@@ -38,3 +38,21 @@ def process_file_with_langchain(file_path):
 if __name__ == "__main__":
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     app.run(debug=True)
+
+
+# EXAMPLE ON HOW TO ROUTE PAGES TOGETHER IN CASE IT DOESNT WORK TOMORROW< IM EEPY 
+#from flask import Flask, render_template
+
+#app = Flask(__name__)
+
+#@app.route('/')
+#def home():
+   # return render_template('index.html')  # This serves the landing page
+
+#@app.route('/upload')
+#def upload():
+   # return render_template('upload.html')  # This serves the upload interface
+
+#if __name__ == '__main__':
+   # app.run(debug=True)
+
