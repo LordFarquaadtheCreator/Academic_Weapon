@@ -70,3 +70,9 @@ body {
 .flashes {
     color: red;
 }
+
+/* Add a class for displaying the selected file details */
+.file-details {
+    margin-top: 1rem;
+    color: #856404;
+}
