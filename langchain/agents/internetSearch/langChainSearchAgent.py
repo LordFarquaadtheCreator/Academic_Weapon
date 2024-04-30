@@ -10,6 +10,7 @@ from langchain_openai import ChatOpenAI
 from langchain.agents.format_scratchpad.openai_tools import format_to_openai_tool_messages
 from langchain.agents.output_parsers.openai_tools import OpenAIToolsAgentOutputParser
 from langchain.agents import AgentExecutor
+import os
 
 #creating a custom tool: https://python.langchain.com/docs/modules/tools/custom_tools/
 #creating an agent: https://python.langchain.com/docs/expression_language/get_started/ 
@@ -20,6 +21,8 @@ CONFIG = dotenv_values('../../../.env')
 BING_API_KEY = CONFIG['BING_API_KEY']
 OPENAI_API_KEY = CONFIG['OPENAI_API_KEY']
 MODEL = ChatOpenAI(model= "gpt-3.5-turbo", api_key= OPENAI_API_KEY, temperature=0)
+
+
 
 
 prompt = ChatPromptTemplate.from_messages([
@@ -66,4 +69,6 @@ agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=False)
 
 if __name__ == "__main__":
     userIn = input("What would you like to search today?: ")
+    out = list(agent_executor.stream({"userQuery": userIn}))
     print(agent_executor.invoke({"userQuery": userIn}))
+    print(out)
