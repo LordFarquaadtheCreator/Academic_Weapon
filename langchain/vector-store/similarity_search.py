@@ -13,7 +13,7 @@ db = FAISS.load_local(
     "faiss_index", OpenAIEmbeddings(), allow_dangerous_deserialization=True
 )
 
-query = "IM GONNA"
+query = "what am i gonna do?"
 docs = db.similarity_search(query)
 
 print(docs[0].page_content)
