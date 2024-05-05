@@ -1,6 +1,7 @@
 from upload_data_to_db import upload_to_db
 from langchain_community.document_loaders import PyPDFLoader
 import os
+from loaders import pdf_pages
 
 
 def encode_image(image) -> str:
@@ -54,8 +55,7 @@ async def add_data(dir: str, client):
 
         if os.path.join(dir, path).endswith(".pdf"):
             print(f"Processing {path}")
-            loader = PyPDFLoader(os.path.join(dir, path))
-            upload_to_db(loader.load_and_split())
+            upload_to_db(pdf_pages(path))
 
 
 if __name__ == "__main__":
