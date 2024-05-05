@@ -6,10 +6,8 @@ from langchain_community.document_loaders import PyPDFLoader
 from dotenv import load_dotenv
 import os
 
-def upload_to_db():
-    """ uploads all files of type .txt to database """
-    DATA_PATH = "data"
-
+def upload_to_db(doc):
+    """ takes in documents and uploads to db"""
     load_dotenv()
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
@@ -20,13 +18,6 @@ def upload_to_db():
         "faiss_index", OpenAIEmbeddings(), allow_dangerous_deserialization=True
     )
 
-    for entry in os.listdir(DATA_PATH):
-
-        loader = PyPDFLoader(os.path.join("data", entry))  # must be pdf file
-        documents = loader.load()
-        text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
-        docs = text_splitter.split_documents(documents)
-
-        db.add_documents(docs)
+    db.add_documents(doc)
 
     db.save_local("faiss_index")

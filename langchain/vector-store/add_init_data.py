@@ -1,6 +1,6 @@
-import chromadb
-from chromadb.utils import embedding_functions
 from upload_data_to_db import upload_to_db
+from langchain_community.document_loaders import PyPDFLoader
+import os
 
 
 def encode_image(image) -> str:
@@ -11,6 +11,7 @@ def encode_image(image) -> str:
     image.save(byte_arr, format="JPEG")
     encoded_image = base64.b64encode(byte_arr.getvalue()).decode("utf-8")
     return encoded_image
+
 
 async def image_to_text(image) -> object:
     from openai import OpenAI
@@ -45,23 +46,19 @@ async def image_to_text(image) -> object:
 
 async def add_data(dir: str, client):
     # recursive
-    import os
-    from pdf2image import convert_from_path
-
     dirs = os.listdir(dir)
+
     for path in dirs:
-        if os.path.isdir(os.path.join(dir, path)):
+        if os.path.isdir(os.path.join(dir, path)):  # if dir spotted, recurse into it
             await add_data(os.path.join(dir, path), client)  # recursive call
 
         if os.path.join(dir, path).endswith(".pdf"):
-            images = convert_from_path(os.path.join(dir, path))
             print(f"Processing {path}")
-            for i, image in enumerate(images):
-                encoded_image = encode_image(image)
-                text = await image_to_text(encoded_image)
-                upload_to_db(text)
+            loader = PyPDFLoader(os.path.join(dir, path))
+            upload_to_db(loader.load_and_split())
 
 
 if __name__ == "__main__":
     import asyncio
+
     asyncio.run(add_data("data/"))
