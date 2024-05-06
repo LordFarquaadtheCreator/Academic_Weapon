@@ -2,6 +2,9 @@
 /env
 /faiss_index
 
+# remove test file
+test_search/
+
 # Logs
 logs
 *.log
