@@ -105,7 +105,8 @@ def searchOrNot(userIn: str) -> List[dict]:
     #Prepping execution and executing
     agent_executor = AgentExecutor(agent=agent, tools=[searchBing], verbose=False)
     out = agent_executor.invoke({"userQuery": userIn})
-    out['sources'] = list(map(extractAndFetch, out['sources']))
+    if "storedAnswer" not in out.keys():
+        out['sources'] = list(map(extractAndFetch, out['sources']))
     return out
 
 
