@@ -13,8 +13,11 @@ from langchain.agents.format_scratchpad import format_to_openai_function_message
 import requests
 # from definitions import BING_API_KEY, OPENAI_API_KEY
 from bs4 import BeautifulSoup
-from dotenv import load_dotenv, find_dotenv, dotenv_values
+from dotenv import load_dotenv, find_dotenv
 import os
+load_dotenv(find_dotenv('.env'))
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+BING_API_KEY = os.getenv('BING_API_KEY')
 
 """
 TO DO: get request on the sources and use beautiful soup to extract the text and relevant links within the page(look at previous commits for that). returned by the query and prep them to be sent to the DB (make a function for that and put it in another file)
@@ -22,10 +25,6 @@ TO DO: implement DB interaction.
 https://beautiful-soup-4.readthedocs.io/en/latest/
 
 """
-load_dotenv(find_dotenv('.env'))
-
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-BING_API_KEY = os.getenv('BING_API_KEY')
 
 
 #Constants
