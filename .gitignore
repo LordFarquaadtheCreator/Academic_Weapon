@@ -3,7 +3,7 @@
 /faiss_index
 
 # remove test file and pycache
-test_search.py/
+test_search.py
 __pycache__/
 
 # Logs
