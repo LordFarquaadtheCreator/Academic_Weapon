@@ -1,13 +1,16 @@
-import chroma
+from flask import Flask
 
-def main():
-    client = get_client()
-    academic_db = create_collection(client)
-    # academic_db = get_collection(client)
-
-    None
+app = Flask(__name__)
 
 
-if __name__ == "main":
-    main()
-    print("this is the main function")
+@app.route("/")
+def hello():
+    return "wrong endpoint"
+
+@app.route("/query")
+async def query(query):
+    res = await langchain(query)
+    return res
+
+if __name__ == "__main__":
+    app.run()
