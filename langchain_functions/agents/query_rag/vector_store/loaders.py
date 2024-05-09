@@ -3,7 +3,6 @@ def pdf_pages(pdf_path: str):
     from langchain_community.document_loaders import PyPDFLoader
 
     loader = PyPDFLoader(pdf_path)
-
     return loader.load_and_split()
 
 
@@ -11,7 +10,6 @@ def html_pages(path: str):
     from langchain_community.document_loaders import UnstructuredHTMLLoader
 
     loader = UnstructuredHTMLLoader(path)
-
     return loader.load()
 
 
@@ -19,25 +17,16 @@ def json_pages(path: str):
     from langchain_community.document_loaders import JSONLoader
 
     loader = JSONLoader(file_path=path, text_content=False, json_lines=True)
-
     return loader.load()
 
 
-def image_pages(path: str):
+async def image_pages(path: str):
     image_content = await image_to_text(path)
-    return text_pages(image_content)
-
-
-def text_pages(path: str):
-    from langchain_community.document_loaders import TextLoader
-
-    loader = TextLoader(path)
-
-    return loader.load()
+    return image_content
 
 
 def encode_image(image) -> str:
-    """ takes in pillow image """
+    """takes in pillow image"""
     import io
     import base64
 

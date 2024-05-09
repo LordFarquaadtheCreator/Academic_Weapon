@@ -1,16 +1,28 @@
-# query the FAISS database
-from langchain_functions.vector-store.similarity_serch import query
-from langchain_community.vector-store.add_data import *
-import asyncio
+from vector_store.similarity_search import query
+from vector_store.add_data import add_file, add_text
 
-async def query_db(query_str: str):
-    return await query(query_str)
+
+def query_db(query_str: str, num_results: int = 1):
+    res = query(query_str, num_results)
+    confidence = res[0][1]
+    documents = res[0][0]
+    return [documents, confidence]
+
 
 async def add_to_db(data: any):
-    pass
+    if isinstance(data, str):
+        res = await add_text(data)
+    else:
+        res = await add_file(data)
+    return res
 
-if __name__ == "__main__":
-    async def main():
-        print(query_db("test"))
 
-    asyncio.run(main())
+# if __name__ == "__main__":
+#     import asyncio
+
+#     async def main():
+#         # res = await add_to_db("im gonna add this to the db")
+#         res = query_db("im gonna add this to the ")
+#         print(res)
+
+#     asyncio.run(main())
