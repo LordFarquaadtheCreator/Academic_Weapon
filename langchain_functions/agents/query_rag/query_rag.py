@@ -1,11 +1,16 @@
-from vector_store.similarity_search import query
-from vector_store.add_data import add_file, add_text
+from agents.query_rag.vector_store.similarity_search import query
+from agents.query_rag.vector_store.add_data import add_file, add_text
 
 
 def query_db(query_str: str, num_results: int = 1):
-    res = query(query_str, num_results)
-    confidence = res[0][1]
-    documents = res[0][0]
+    res: object = query(query_str, num_results)
+    confidence = []
+    documents = []
+    
+    for elem in res:
+        documents.append(elem[0])
+        confidence.append(elem[1])
+
     return [documents, confidence]
 
 
