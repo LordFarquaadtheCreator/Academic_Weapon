@@ -11,7 +11,7 @@ import json
 from langchain_core.agents import AgentActionMessageLog, AgentFinish
 from langchain.agents.format_scratchpad import format_to_openai_function_messages
 import requests
-from definitions import BING_API_KEY, OPENAI_API_KEY
+from agents.internetSearch.definitions import BING_API_KEY, OPENAI_API_KEY
 from bs4 import BeautifulSoup
 
 """

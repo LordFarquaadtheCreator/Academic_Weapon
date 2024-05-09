@@ -12,7 +12,8 @@ async def langchain(query: str, num_results: int, save = False):
         print(e)
 
     # calculate overall confidence
-    if(needBing(sum(results[1]))):
+    confidence: int = sum(results[1])
+    if(needBing(confidence)):
         # search on the internet
         try:
             results.append(await searchOrNot(query))
