@@ -5,6 +5,7 @@
 # remove test file and pycache
 test_search.py
 __pycache__/
+files_with_sources/
 
 # Logs
 logs

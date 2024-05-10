@@ -11,24 +11,24 @@ import json
 from langchain_core.agents import AgentActionMessageLog, AgentFinish
 from langchain.agents.format_scratchpad import format_to_openai_function_messages
 import requests
-from langchain_functions.agents.internetSearch.definitions import (
-    BING_API_KEY,
-    OPENAI_API_KEY,
-)
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv, find_dotenv
+import os
+
+#load the enviornment variables...
+load_dotenv(find_dotenv('.env'))
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+BING_API_KEY = os.getenv('BING_API_KEY')
 
 """
-TO DO: get request on the sources and use beautiful soup to extract the text and relevant links within the page(look at previous commits for that). returned by the query and prep them to be sent to the DB (make a function for that and put it in another file)
-TO DO: implement DB interaction.
-https://beautiful-soup-4.readthedocs.io/en/latest/
-
+TO DO: Prompt engineering for the output of the LLM [X] (Explain the structure of the output)
+TO DO: generate file which will be used to populate DB [X]
 """
-
-# Constants
+#Constants
 URL = 'https://api.bing.microsoft.com/v7.0/search'
 MODEL = ChatOpenAI(model= "gpt-3.5-turbo", api_key= OPENAI_API_KEY, temperature=0.1)
 prompt = ChatPromptTemplate.from_messages([
-    ("system", "you have a texan accent and don't know current events beyond the year 2022!"),
+    ("system", "you don't know current events beyond the year 2022! You are assisting a user with queries they have about homework"),
     ("user", "{userQuery}"),
     MessagesPlaceholder(variable_name="agent_scratchpad")
 ])
@@ -65,15 +65,25 @@ def outputParser(output): # parse the output
     # Otherwise, return an agent action
     return AgentActionMessageLog(tool=name, tool_input=inputs, log="", message_log=[output])
 
-def extractAndFetch(source: dict[str]) -> dict[str]:
-    res = requests.get(url=source['link'])
-    if res.status_code != 200:
-        print(f'there was an error of status code: {res.status_code}')
-        return {'relevantLink': source['link'], 'fetchStatus': res.status_code}
-    doc = res.content
-    soup = BeautifulSoup(doc, 'html.parser') #use beautiful soup to only get the text and title
-    return {'title': soup.title.string, 'pageData': soup.get_text()}
-
+def writeToFiles(source: list[dict[str]]) -> None:
+    path = os.path.join(os.getcwd(), "files_with_sources")
+    if not os.path.isdir("files_with_sources"):
+        os.mkdir(path=path)
+    elif len(os.listdir(path=path)) != 0: #empty 
+        print(f'DIRECTORY: {path} not empty.\nClearing directory...')
+        for File in os.listdir(path=path): os.remove(os.path.join(path, File)) #delete the files
+    for i, src in enumerate(source):
+        #we have the index and the link as well...
+        with open(file=f"{path}/searched_source_{i + 1}.txt", mode='w', encoding="UTF-8") as cache_search:
+            res = requests.get(url=src['link'])
+            if res.status_code != 200:
+                print(f'there was an error of status code: {res.status_code}')
+                continue
+            doc = res.content
+            soup = BeautifulSoup(doc, 'html.parser') #use beautiful soup to only get the text and title
+            content = soup.get_text(separator="\n", strip=True)
+            content_split = content.split('\n')
+            cache_search.writelines(content_split)
 
 # defining the tools the GPT LLM can use
 @tool("search-tool", args_schema=SearchInput) # don't think this is necessary since bing search is a built in tool
@@ -83,7 +93,8 @@ def searchBing(query: str) -> list[dict[str]]:
     return SEARCH.results(query, 100)
 
 
-# exports
+
+#exports
 def searchOrNot(userIn: str) -> List[dict]: 
     #Binding the tools
     model_with_tools = MODEL.bind_functions([searchBing, Response])
@@ -102,7 +113,9 @@ def searchOrNot(userIn: str) -> List[dict]:
     #Prepping execution and executing
     agent_executor = AgentExecutor(agent=agent, tools=[searchBing], verbose=False)
     out = agent_executor.invoke({"userQuery": userIn})
-    out['sources'] = list(map(extractAndFetch, out['sources']))
+    if "storedAnswer" not in out.keys():
+        writeToFiles(source=out['sources'])
+
     return out
 
 
