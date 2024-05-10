@@ -14,7 +14,8 @@ function PromptInput() {
 
         axios.get("http://127.0.0.1:5000/query", {
             params: {
-                query: input
+                query: input,
+                context: 5
             }
         }).then((response) => {
             console.log(response.data)
