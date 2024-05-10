@@ -2,7 +2,7 @@ from langchain_functions.agents.query_rag.vector_store.similarity_search import 
 from langchain_functions.agents.query_rag.vector_store.add_data import add_file, add_text
 
 
-def query_db(query_str: str, num_results: int = 1):
+async def query_db(query_str: str, num_results: int = 1):
     res: object = query(query_str, num_results)
     confidence = []
     documents = []

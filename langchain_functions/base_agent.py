@@ -21,16 +21,19 @@ async def get_context(query: str, num_results: int, save=False):
     from langchain_functions.agents.internetSearch.internet import searchOrNot
     from langchain_functions.functions.needBing import need_bing
 
-    results = []
+    results = [[], []]
 
     # check database
     try:
-        results = query_db(query, num_results)
+        results = await query_db(query, num_results)
     except Exception as e:
         print(e)
 
     # calculate overall confidence
-    confidence: int = sum(results[1]) / len(results[1])
+    if len(results[1]) == 0:
+        confidence = 0
+    else: 
+        confidence: int = sum(results[1]) / len(results[1])
     needs_bing = need_bing(confidence)
 
     if not needs_bing:
