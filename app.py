@@ -1,6 +1,7 @@
 # doc: https://pgjones.gitlab.io/quart/reference/cheatsheet.html#cheatsheet
 from quart import Quart, request
-from langchain_functions import base_agent
+from langchain_functions.base_agent import langchain
+from langchain_functions.agents.internetSearch import *
 
 app = Quart(__name__)
 
@@ -12,8 +13,14 @@ def hello():
 @app.route("/query", methods=["GET"])
 async def query():
     query = request.args.get("query")
-    res = await base_agent(query, 1)
+    res = await langchain(query, 1)
+    print(f'The response was {res} \n\n')
     return res
+
+@app.route("/upload", methods=["POST"])
+async def uploadFile():
+    return request.body
+    
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,2 +1,2 @@
-from needBing import needBing
+from .needBing import need_bing
 
