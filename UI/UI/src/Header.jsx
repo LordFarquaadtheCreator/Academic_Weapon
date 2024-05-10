@@ -1,6 +1,6 @@
 import React from 'react';
 import './Header.css';
-import logo from './assets/academicBEAST.webp'; 
+import logo from '/assets/academicBEAST.webp'; 
 function Header() {
     return (
         <header className="header">
