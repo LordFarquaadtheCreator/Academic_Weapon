@@ -13,9 +13,10 @@ def hello():
 @app.route("/query", methods=["GET"])
 async def query():
     query = request.args.get("query")
-    context = request.args.get("content")
-    res = await get_response(query, context)
-    return res
+    context = request.args.get("content") or 5
+    
+    res = await get_response(query, str(context))
+    return str(res)
 
 
 if __name__ == "__main__":
