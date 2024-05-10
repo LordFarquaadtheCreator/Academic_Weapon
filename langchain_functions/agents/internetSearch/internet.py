@@ -11,7 +11,10 @@ import json
 from langchain_core.agents import AgentActionMessageLog, AgentFinish
 from langchain.agents.format_scratchpad import format_to_openai_function_messages
 import requests
-from agents.internetSearch.definitions import BING_API_KEY, OPENAI_API_KEY
+from langchain_functions.agents.internetSearch.definitions import (
+    BING_API_KEY,
+    OPENAI_API_KEY,
+)
 from bs4 import BeautifulSoup
 
 """
@@ -21,7 +24,7 @@ https://beautiful-soup-4.readthedocs.io/en/latest/
 
 """
 
-#Constants
+# Constants
 URL = 'https://api.bing.microsoft.com/v7.0/search'
 MODEL = ChatOpenAI(model= "gpt-3.5-turbo", api_key= OPENAI_API_KEY, temperature=0.1)
 prompt = ChatPromptTemplate.from_messages([
@@ -31,7 +34,7 @@ prompt = ChatPromptTemplate.from_messages([
 ])
 
 
-#tool and response descriptions
+# tool and response descriptions
 class SearchInput(BaseModel): 
     query: str = Field(description='This should be a search query')
 
@@ -72,7 +75,7 @@ def extractAndFetch(source: dict[str]) -> dict[str]:
     return {'title': soup.title.string, 'pageData': soup.get_text()}
 
 
-#defining the tools the GPT LLM can use
+# defining the tools the GPT LLM can use
 @tool("search-tool", args_schema=SearchInput) # don't think this is necessary since bing search is a built in tool
 def searchBing(query: str) -> list[dict[str]]:
     """a tool to look search online with the bing api"""
@@ -80,7 +83,7 @@ def searchBing(query: str) -> list[dict[str]]:
     return SEARCH.results(query, 100)
 
 
-#exports
+# exports
 def searchOrNot(userIn: str) -> List[dict]: 
     #Binding the tools
     model_with_tools = MODEL.bind_functions([searchBing, Response])
@@ -106,4 +109,3 @@ def searchOrNot(userIn: str) -> List[dict]:
 if __name__ == "__main__":
     userIn = input("What would you like to search today?: ")
     print(searchOrNot(userIn=userIn))
-

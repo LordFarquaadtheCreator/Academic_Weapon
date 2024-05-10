@@ -1,5 +1,5 @@
-from agents.query_rag.vector_store.similarity_search import query
-from agents.query_rag.vector_store.add_data import add_file, add_text
+from langchain_functions.agents.query_rag.vector_store.similarity_search import query
+from langchain_functions.agents.query_rag.vector_store.add_data import add_file, add_text
 
 
 def query_db(query_str: str, num_results: int = 1):

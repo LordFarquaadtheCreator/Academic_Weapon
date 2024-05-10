@@ -1,6 +1,6 @@
-from agents.query_rag.query_rag import query_db, add_to_db
-from agents.internetSearch.internet import searchOrNot
-from functions.needBing import need_bing
+from langchain_functions.agents.query_rag.query_rag import query_db, add_to_db
+from langchain_functions.agents.internetSearch.internet import searchOrNot
+from langchain_functions.functions.needBing import need_bing
 
 async def langchain(query: str, num_results: int, save = False):
     results = []
