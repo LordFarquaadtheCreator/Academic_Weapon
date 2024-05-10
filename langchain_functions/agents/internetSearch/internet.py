@@ -34,7 +34,7 @@ prompt = ChatPromptTemplate.from_messages([
 ])
 
 
-#tool and response descriptions
+# tool and response descriptions
 class SearchInput(BaseModel): 
     query: str = Field(description='This should be a search query')
 
@@ -85,7 +85,7 @@ def writeToFiles(source: list[dict[str]]) -> None:
             content_split = content.split('\n')
             cache_search.writelines(content_split)
 
-#defining the tools the GPT LLM can use
+# defining the tools the GPT LLM can use
 @tool("search-tool", args_schema=SearchInput) # don't think this is necessary since bing search is a built in tool
 def searchBing(query: str) -> list[dict[str]]:
     """a tool to look search online with the bing api"""
@@ -122,4 +122,3 @@ def searchOrNot(userIn: str) -> List[dict]:
 if __name__ == "__main__":
     userIn = input("What would you like to search today?: ")
     print(searchOrNot(userIn=userIn))
-
