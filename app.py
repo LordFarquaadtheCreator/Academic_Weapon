@@ -1,4 +1,3 @@
-# doc: https://pgjones.gitlab.io/quart/reference/cheatsheet.html#cheatsheet
 from quart import Quart, request
 from langchain_functions import base_agent
 from quart_cors import cors
