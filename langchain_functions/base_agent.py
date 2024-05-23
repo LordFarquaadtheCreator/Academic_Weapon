@@ -49,9 +49,7 @@ async def get_context(query: str, num_results: int, save=False):
             await add_to_db(query)
         except Exception as e:
             print(e)
-    #since we append the response of search to the end we should return[-1]
-    #thus return should be conditional and not always return[0] unless 
-    #we add the res to the front of the list
+
     return results[0]
 
 
