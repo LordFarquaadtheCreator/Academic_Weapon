@@ -4,6 +4,7 @@ import axios from 'axios';
 
 function PromptInput() {
     const [input, setInput] = useState('');
+    const [data, setData] = useState('');
 
     const handleChange = (e) => {
         setInput(e.target.value);
@@ -19,15 +20,19 @@ function PromptInput() {
             }
         }).then((response) => {
             console.log(response.data)
+            setData(response.data)
         }).catch((error) => {
             console.log(error)
         })
     }
 
+    
+
     return (
         <div className="prompt-input">
             <textarea id="userinput" onChange={handleChange} placeholder="Enter Prompt Here"></textarea>
             <button onClick={handleSubmit}>Submit</button>
+            {data}
         </div>
     );
 }
