@@ -13,7 +13,8 @@ def hello():
 @app.route("/query", methods=["GET"])
 async def query():
     query = request.args.get("query")
-    context = int(request.args.get("content")) or 5
+    #formerly context = int(request.args.get("content")) or 5
+    context = 5
     res = await get_response(query=query, context_count=context)
     #'>' not supported between instances of 'str' and 'int'
     #this error is caused by the context being a string and not an integer in previous res = await get_response(query, str(context))
