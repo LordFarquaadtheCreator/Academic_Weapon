@@ -30,7 +30,7 @@
     - use a "[sparse retriever](https://en.wikipedia.org/wiki/Okapi_BM25)" like BM25 or [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) with a dense retriever (embedding)
 - Re-Rank & Filter Documents before sending to LLM 
     - despite having a high score in db, does not mean its a good match
-    - rerank using smth like [Cohere](https://cohere.com/rerank) & filter out those that you dont need
+    - rerank using smth like [Cohere](https://cohere.com/rerank) or [HuggingFace](https://huggingface.co/BAAI/bge-reranker-v2-m3) & filter out those that you dont need
 - Document Compressors
     - small LLMs that remove noise from retrieved documents
     - returning only what is important in the context of the given query
