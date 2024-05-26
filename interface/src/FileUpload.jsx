@@ -20,21 +20,27 @@ function FileUpload() {
         setDragging(false);
         if (e.dataTransfer.files.length) {
             console.log('Dropped file:', e.dataTransfer.files[0].name);
-            setFileName((existingFiles) => [...existingFiles, ...e.dataTransfer.files[0].name]); //displays the file that was dropped
-            setFiles((existingFiles) => [...existingFiles, e.dataTransfer.files[0]]);
+            setFileName((existingFiles) => [...existingFiles, e.dataTransfer.files[0].name]); //displays the file that was dropped
+            setFiles((existingFiles) => [...existingFiles, e.originalEvent.dataTransfer]);
             //here we can handle the file upload
         }
     };
     const handleFileChange = (e) => {
-        setFileName((existingFiles) => [...existingFiles, ...e.dataTransfer.files[0].name]); //displays the file that was dropped
+        setFileName((existingFiles) => [...existingFiles, e.target.files[0].name]); //displays the file that was dropped
     };
 
-    const removeFile = (fileName) => {
-        setFiles(files.filter(file => file.name !== fileName));
+    const removeFile = (file_name) => {
+        console.log(file_name)
+        const out = fileName.filter(file => file !== file_name)
+        console.log(fileName.filter(file => file !== file_name))
+        setFiles(out);
     };
 
+    /* Needs a lot of work */
+    /*TO Do:  send file payload to backend probably going to make another area for uploading files since this is quite bad*/
     return (
             <div className="flex items-center justify-center flex flex-col w-full h-full">
+                {console.log(files[0])}
                 <label
                     htmlFor="dropzone-file"
                     className={`flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer 
@@ -54,13 +60,16 @@ function FileUpload() {
                     </div>
                     <input id="dropzone-file" type="file" className="hidden" />
                 </label>
+                <div id='payload' className="">
+                    <button></button>
+                </div>
                 
                 <div className="uploaded-files">
-                    {fileName}
+                    {console.log(fileName)}
                     {fileName.map((file, index) => (
                         <div key={index}>
                             {file}
-                            <button onClick={() => removeFile(file.name)} style={{ marginLeft: '10px' }}>X</button>
+                            <button onClick={() => removeFile('env.txt')} style={{ marginLeft: '10px' }}>X</button>
                         </div>
                     ))}
                 </div>

@@ -3,10 +3,15 @@ import React from 'react';
 import logo from '/images/academic_beast.png'; 
 function Header() {
     return (
-        <div className="flex flex-col items-center">
-            <img src={logo} alt="Logo" className="logo" style={{width: 100, height: 100}}/> 
-            <h1 className='text-colorfulOrange' text>Academic Weapon</h1>
-        </div>
+        <>
+            <div className="flex justify-center">
+                <img src={logo} className="w-96" alt="Logo"/> 
+                <div className='text-center inline-block align-middle'>
+                    <h1 className='text-colorfulOrange text-5xl text' text>Academic</h1>
+                    <h1 className='text-colorfulOrange text-5xl' text>Weapon</h1>
+                </div>
+            </div> 
+        </>
     );
 }
 

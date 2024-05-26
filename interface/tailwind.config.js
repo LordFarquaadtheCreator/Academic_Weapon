@@ -18,6 +18,7 @@ export default {
         'deepRed': '#8C1818',
         'deepWhite': '#F2F2F2',
         'darkBlue': '#03588C',
+        'perfectGrey': '#615559',
       },
     },
   },
