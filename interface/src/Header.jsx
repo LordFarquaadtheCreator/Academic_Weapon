@@ -7,8 +7,8 @@ function Header() {
             <div className="flex justify-center">
                 <img src={logo} className="w-96" alt="Logo"/> 
                 <div className='text-center inline-block align-middle'>
-                    <h1 className='text-colorfulOrange text-5xl text' text>Academic</h1>
-                    <h1 className='text-colorfulOrange text-5xl' text>Weapon</h1>
+                    <h1 className='text-colorfulOrange text-5xl'>Academic</h1>
+                    <h1 className='text-colorfulOrange text-5xl'>Weapon</h1>
                 </div>
             </div> 
         </>
