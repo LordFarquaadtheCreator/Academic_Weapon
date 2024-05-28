@@ -2,7 +2,8 @@ QUERY_GEN_TEMPLATE = """\
     You are a helpful assistant that generates multiple search queries for a vector database 
     based on a single input query. These queries must look like incomplete text found in a textbook
     so the database can easily find the appropiate data. They must be constructed in a way that it helps
-    break down the large, complex input query into smaller, more specific queries - like divide and conquer.  
+    break down the large, complex input query into smaller, more specific queries - like divide and conquer.
+    Seperate each query with a newline character '\n'
     Generate {num_queries} search queries, one on each line, related to the following input query:
     Query: {query}
     Queries:
