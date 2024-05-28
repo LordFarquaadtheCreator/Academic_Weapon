@@ -31,14 +31,14 @@ def create_db():
         try:
             # process data
             documents = SimpleDirectoryReader(DATA_DIR).load_data()
-            # documents = sentence_window_setup(documents)
+            nodes = sentence_window_setup(documents)
             # ^^^ breaks
 
             # create vector database
             storage_context = init_chroma()
 
-            index = VectorStoreIndex.from_documents(
-                documents, storage_context=storage_context, embed_model=EMBED_MODEL
+            index = VectorStoreIndex(
+                nodes, storage_context=storage_context, embed_model=EMBED_MODEL
             )
 
             logging.info("Vector database created successfully.")

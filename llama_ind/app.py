@@ -14,6 +14,7 @@ def main():
 
     try:
         query_engine = get_db_query_engine()
+        # index = create_db()
     except Exception as e:
         print(e)
         exit()
