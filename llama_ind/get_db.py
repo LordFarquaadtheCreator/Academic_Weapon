@@ -1,5 +1,5 @@
 def get_db_index():
-    """returns db engine as a query engine - sentence window retrevial"""
+    """Returns the database for direct queries"""
     import chromadb
     from llama_index.vector_stores.chroma import ChromaVectorStore
     from llama_index.core import VectorStoreIndex
@@ -11,10 +11,5 @@ def get_db_index():
 
     db = chromadb.PersistentClient(path=PERSIST_DIR)
     chroma_collection = db.get_collection(DB_NAME)
-    vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
-    index = VectorStoreIndex.from_vector_store(
-        vector_store,
-        embed_model=EMBED_MODEL,
-    )
 
-    return index
+    return chroma_collection
