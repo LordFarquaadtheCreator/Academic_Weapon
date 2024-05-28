@@ -1,33 +1,25 @@
 def main():
-    # documents = SimpleDirectoryReader("data").load_data()
-
-    # Settings.embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-base-en-v1.5")
-
-    # sentence_index = sentence_window_setup(documents)
-    # exit()
-    # ollama
-    # Settings.llm = Ollama(model="phi3", request_timeout=360.0)
-    # needs more ram!!!!
-
     from llama_ind.get_db import get_db_index
     from llama_ind.init_db import create_db
     from llama_index.core.postprocessor import MetadataReplacementPostProcessor
+    from llama_ind.query_rewrite import generate_queries
 
     try:
-        index = create_db()
-        # index = get_db_index()
-        # query_engine = index.as_query_engine(
-        #     similarity_top_k=5,
-        #     node_postprocessors=[
-        #         MetadataReplacementPostProcessor(target_metadata_key="window")
-        #     ],
-        # )
-
+        res = generate_queries("What's an LDNUM? How can I write a function to generate them. Who wrote the article?")
         # index = create_db()
+        index = get_db_index()
+        query_engine = index.as_query_engine(
+            similarity_top_k=5,
+            node_postprocessors=[
+                MetadataReplacementPostProcessor(target_metadata_key="window")
+            ],
+        )
+
+        query_engine = index.as_query_engine()
+        for ques in res:
+            response = query_engine.query(ques)
+            print(response)
+
     except Exception as e:
         print(e)
         exit()
-
-    query_engine = index.as_query_engine()
-    response = query_engine.query("what is an ld?")
-    print(response)
