@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+
+const url = 'http://localhost:5000';
 
 function FileUpload() {
     const [files, setFiles] = useState([]);
@@ -42,7 +45,7 @@ function FileUpload() {
     const handleFormSubmit = (e) => {
         e.preventDefault();
         console.log(files);
-        axio
+        axios.postForm('')
     }
     /* Needs a lot of work */
     /*TO Do:  send file payload to backend probably going to make another area for uploading files since this is quite bad*/
@@ -50,7 +53,7 @@ function FileUpload() {
     /*https://axios-http.com/docs/multipart */
     return (
             <div className="flex items-center justify-center flex flex-col w-full h-full">
-                <form onSubmit={handleFormSubmit} method='post' target='_self'>
+                <form onSubmit={handleFormSubmit} method='post' target='_self' encType='multipart/form-data'>
                     <label
                         htmlFor="dropzone-file"
                         className={`flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer 
