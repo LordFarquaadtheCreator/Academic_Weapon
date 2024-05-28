@@ -9,16 +9,25 @@ def main():
     # Settings.llm = Ollama(model="phi3", request_timeout=360.0)
     # needs more ram!!!!
 
-    from llama_ind.get_db import get_db_query_engine
+    from llama_ind.get_db import get_db_index
     from llama_ind.init_db import create_db
+    from llama_index.core.postprocessor import MetadataReplacementPostProcessor
 
     try:
-        query_engine = get_db_query_engine()
+        index = create_db()
+        # index = get_db_index()
+        # query_engine = index.as_query_engine(
+        #     similarity_top_k=5,
+        #     node_postprocessors=[
+        #         MetadataReplacementPostProcessor(target_metadata_key="window")
+        #     ],
+        # )
+
         # index = create_db()
     except Exception as e:
         print(e)
         exit()
 
-    # query_engine = index.as_query_engine()
-    response = query_engine.query("what is an ldnum?")
+    query_engine = index.as_query_engine()
+    response = query_engine.query("what is an ld?")
     print(response)

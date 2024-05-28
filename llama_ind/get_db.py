@@ -1,10 +1,9 @@
-def get_db_query_engine():
+def get_db_index():
     """returns db engine as a query engine - sentence window retrevial"""
     import chromadb
     from llama_index.vector_stores.chroma import ChromaVectorStore
     from llama_index.core import VectorStoreIndex
     from llama_index.embeddings.huggingface import HuggingFaceEmbedding
-    from llama_index.core.postprocessor import MetadataReplacementPostProcessor
 
     PERSIST_DIR = "db"
     EMBED_MODEL = HuggingFaceEmbedding(model_name="BAAI/bge-base-en-v1.5")
@@ -17,10 +16,5 @@ def get_db_query_engine():
         vector_store,
         embed_model=EMBED_MODEL,
     )
-    query_engine = index.as_query_engine(
-        node_postprocessors=[
-            MetadataReplacementPostProcessor(target_metadata_key="window")
-        ],
-    )
 
-    return query_engine
+    return index

@@ -23,11 +23,15 @@ def init_defaults():
 
 
 def sentence_window_setup(documents: Document) -> Document:
-    # from llama_index.core import VectorStoreIndex
+    from llama_ind.remove_stop import remove_stop_words
 
     node_parser, text_splitter = init_defaults()
 
     nodes = node_parser.get_nodes_from_documents(documents)
 
-    # sentence_index = VectorStoreIndex(nodes)
+    for node in nodes:
+        node.metadata["original_text"] = remove_stop_words(
+            node.metadata["original_text"]
+        )
+
     return nodes
