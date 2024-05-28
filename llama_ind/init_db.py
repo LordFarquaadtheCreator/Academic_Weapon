@@ -12,7 +12,6 @@ PERSIST_DIR = "db"
 DATA_DIR = "data"
 EMBED_MODEL = HuggingFaceEmbedding(model_name="BAAI/bge-base-en-v1.5")
 DB_NAME = "academic"
-logging.basicConfig(level=logging.INFO)
 
 
 def init_chroma():
