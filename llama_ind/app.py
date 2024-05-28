@@ -9,10 +9,15 @@ def main():
     # Settings.llm = Ollama(model="phi3", request_timeout=360.0)
     # needs more ram!!!!
 
-    from llama_ind.get_db import get_db
-    index = get_db()
+    from llama_ind.get_db import get_db_query_engine
+    from llama_ind.init_db import create_db
 
-    query_engine = index.as_query_engine()
+    try:
+        query_engine = get_db_query_engine()
+    except Exception as e:
+        print(e)
+        exit()
+
+    # query_engine = index.as_query_engine()
     response = query_engine.query("what is an ldnum?")
     print(response)
-
