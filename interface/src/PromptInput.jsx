@@ -27,14 +27,13 @@ function PromptInput() {
                     content: 5
                 }
             }).then((response) => {
-                console.log(response.data)
                 setData(response.data)
             }).catch((error) => {
                 if(error.response){
                     setData(`Request passed successfully, however there was an error with the server and responded with status: ${error.response.status}`)
                 }
                 else if(error.request){
-                    setData(`Request was made but no response was received. Error: ${error.request}`)
+                    setData(`Request was made but no response was received. Error: ${error.message}`)
                 }
                 else{
                     setData(`There was an error, please try again later`)
@@ -49,7 +48,7 @@ function PromptInput() {
 
     return (
             <>
-                <div className="flex items-center shadow-xl pr-2 pl-1 py-2 rounded-2xl bg-perfectGrey hover:animate-pulse">
+                <div className="flex items-center shadow-xl pr-2 pl-1 py-2 rounded-2xl bg-perfectGrey hover:animate">
                     <textarea 
                         onChange={handleChange} 
                         style={{width: 700, height: 55}} 
