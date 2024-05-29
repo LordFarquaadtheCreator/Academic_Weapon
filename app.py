@@ -2,6 +2,7 @@ from quart import Quart, request, make_response, websocket
 from langchain_functions.base_agent import get_response
 from quart_cors import cors
 import asyncio
+import os
 
 
 app = cors(Quart(__name__), allow_origin="*")
@@ -25,14 +26,25 @@ async def query():
 
 @app.route("/upload", methods=["POST"]) #for the most part the posting of the file is done just need a location for the file to be stored for the moment before being passed into the vector store.
 async def upload():
+    PATH = os.path.join(os.getcwd(), "uploads")
+
+    if not os.path.isdir("uploads"):
+        os.mkdir(path=PATH)
+    elif len(os.listdir(path=PATH)) != 0: #empty 
+        print(f'DIRECTORY: {PATH} not empty.\nClearing directory...')
+        for File in os.listdir(path=PATH): os.remove(os.path.join(PATH, File)) #delete the files
+        
     try:
         text_payload = await request.form #recieve other parts of the form
         file_payload = await request.files #recieve the file parts of the form
+
         if len(text_payload) > 0:
-            for name, data in text_payload.items(): ##here is where we want to process and save the data...
-                print(name, data)
-        for name, currFile in file_payload.items():
-            print(name, currFile.read())
+            for key, data in text_payload.items(): ##here is where we want to process and save the data...
+                print(key, data)
+        if len(file_payload) > 0:
+            for key, currFile in file_payload.items(): ##here is where we want to cache the data
+                print(key, currFile)
+                await currFile.save(os.path.join(PATH, f'{key}{currFile.filename}'))
 
     except Exception as e:
         return await make_response(f'Error {e}', 500)

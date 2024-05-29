@@ -1,0 +1,31 @@
+#API key
+YELP_API_KEY = i8qdUYy-qpetDYGHf9m_UByg-ayIe1r89R3HzuXwerVGTGq0Gp4hNEDtpzPY14RbmK-0OSH_BUTYvMrG24ctC0aYEhXLEoIvxPmbaU2ifGn6J4LzdP1mFOSR1D5FZXYx
+
+#backend dev server information
+SERVER_HOST = 127.0.0.1
+SERVER_PORT = 3060
+
+#next format
+
+NEXT_PUBLIC_SERVER_HOST = 127.0.0.1
+NEXT_PUBLIC_SERVER_PORT = 3060
+
+#DB dev information
+DB_SERVER_HOST = localhost
+DB_SERVER_PORT = 8080
+DB_DIALECT = postgres
+DB_NAME = test00
+DB_PASS = 0000
+DB_USER = postgres
+
+#deployed server
+NEXT_PUBLIC_SERVER_HOST = kaja-test-deplymnt.onrender.com 
+
+#deployed DB info 
+DB_SERVER_HOST = dpg-clrah0rh3k0c73ah6ra0-a
+DB_SERVER_PORT = 8080
+DB_DIALECT = postgres
+DB_NAME = kaja_db
+DB_PASS = htP8i42UBD0Jq1mPYUi8lkD3HIo9MREN
+DB_USER = brandon
+

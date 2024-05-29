@@ -6,7 +6,7 @@ import ResponseField from './ResponseField';
 function PromptInput() {
     const [input, setInput] = useState('');
     const [data, setData] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false); // for a possible loading animation
     const [submitingData, setSubmitingData] = useState(false);
 
     const handleChange = (e) => {

@@ -21,16 +21,17 @@ function FileUpload() {
     const handleDrop = (e) => {
         e.preventDefault();
         setDragging(false);
+        console.log(e.dataTransfer.files[0])
         if (e.dataTransfer.files.length) {
-            console.log('Dropped file:', e.dataTransfer.files[0].name);
             setFileName((existingFiles) => [...existingFiles, e.dataTransfer.files[0].name]); //displays the file that was dropped
-            setFiles((existingFiles) => [...existingFiles, e.originalEvent.dataTransfer]);
-            //here we can handle the file upload
+            setFiles((existingFiles) => [...existingFiles, e.dataTransfer.files[0]]);
         }
     };
     const handleFileChange = (e) => {
+        console.log(e.target.files[0]);
         if(e.target.files.length){
             setFileName((existingFiles) => [...existingFiles, e.target.files[0].name]); //displays the file that was dropped
+            setFiles((existingFiles) => [...existingFiles, e.target.files[0]]); //displays the file that was dropped
         }
     };
 
@@ -45,15 +46,10 @@ function FileUpload() {
     const handleFormSubmit = (e) => {
         //https://stackoverflow.com/questions/58381990/react-axios-multiple-files-upload
         e.preventDefault();
-        console.log(fileName)
         const form = new FormData();
-        fileName.forEach(file => {
-            form.append(`multi_files${fileName.indexOf(file)}`, file);
+        files.forEach(file => {
+            form.append(`multi_files_${files.indexOf(file)}`, file);
         });
-        //when using the form.append the key has to be unique...
-        //if it is not then the server will only display the last occurrence of the key
-        //also for the value if it is not unique the server will display only one
-
         axios.post('http://127.0.0.1:5000/upload', form)
             .then(res => console.log(res.data))
             .catch(err => console.error(`There was an error ${err.message}`));
@@ -65,7 +61,7 @@ function FileUpload() {
     /*https://axios-http.com/docs/multipart */
     return (
             <div className="flex items-center justify-center flex flex-col w-full h-full">
-                <form onSubmit={handleFormSubmit} method='post' encType='multipart/form-data'>
+                <form onSubmit={handleFormSubmit} method='post' encType='multipart/form-data' className='flex items-center flex-col'>
                     <label
                         htmlFor="dropzone-file"
                         className={`flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer 
@@ -85,9 +81,6 @@ function FileUpload() {
                         </div>
                         <input id="dropzone-file" type="file" className="hidden" multiple/>
                     </label>
-                    <div id='payload' className="">
-                        <button></button>
-                    </div>
                     <button type='submit' className='bg-colorfulOrange border-4 border-darkBlue p-2 rounded-xl hover:bg-deepRed'>Submit</button>
                 </form>
                 
