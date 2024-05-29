@@ -28,8 +28,9 @@ async def upload():
     try:
         text_payload = await request.form #recieve other parts of the form
         file_payload = await request.files #recieve the file parts of the form
-        for name, data in text_payload.items(): ##here is where we want to process and save the data...
-            print(name, data)
+        if len(text_payload) > 0:
+            for name, data in text_payload.items(): ##here is where we want to process and save the data...
+                print(name, data)
         for name, currFile in file_payload.items():
             print(name, currFile.read())
 

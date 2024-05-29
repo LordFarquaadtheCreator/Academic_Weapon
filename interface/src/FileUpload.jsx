@@ -41,19 +41,31 @@ function FileUpload() {
         setFiles(out);
     };
 
-
+    //going to use the formData api for this which allows for a simple implementation that doesn't have to use the legacy form attribute from html for multipart/form data
     const handleFormSubmit = (e) => {
+        //https://stackoverflow.com/questions/58381990/react-axios-multiple-files-upload
         e.preventDefault();
-        console.log(files);
-        axios.postForm('')
+        console.log(fileName)
+        const form = new FormData();
+        fileName.forEach(file => {
+            form.append(`multi_files${fileName.indexOf(file)}`, file);
+        });
+        //when using the form.append the key has to be unique...
+        //if it is not then the server will only display the last occurrence of the key
+        //also for the value if it is not unique the server will display only one
+
+        axios.post('http://127.0.0.1:5000/upload', form)
+            .then(res => console.log(res.data))
+            .catch(err => console.error(`There was an error ${err.message}`));
     }
+
     /* Needs a lot of work */
     /*TO Do:  send file payload to backend probably going to make another area for uploading files since this is quite bad*/
     /*test with postman for file uploads*/
     /*https://axios-http.com/docs/multipart */
     return (
             <div className="flex items-center justify-center flex flex-col w-full h-full">
-                <form onSubmit={handleFormSubmit} method='post' target='_self' encType='multipart/form-data'>
+                <form onSubmit={handleFormSubmit} method='post' encType='multipart/form-data'>
                     <label
                         htmlFor="dropzone-file"
                         className={`flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer 
@@ -76,7 +88,7 @@ function FileUpload() {
                     <div id='payload' className="">
                         <button></button>
                     </div>
-                    <button type='submit'>Submit</button>
+                    <button type='submit' className='bg-colorfulOrange border-4 border-darkBlue p-2 rounded-xl hover:bg-deepRed'>Submit</button>
                 </form>
                 
                 <div className="uploaded-files">
