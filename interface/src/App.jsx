@@ -1,30 +1,33 @@
 import React from 'react';
 import Header from './Header';
-import PromptInput from '../../interface/src/PromptInput';
-import FileUpload from '../../interface/src/FileUpload';
+import FileUpload from './FileUpload';
+import PromptInput from './PromptInput';
+import ResponseField from './ResponseField';
+import './index.css'; // Ensure your custom CSS is imported
 
-function App() {
-    /*still need to polish the UI*/
-    /*
-    Two things on backburner until UI is polished and the uploading is successfully sent to the backend :
-    - make a mock nvbar with not much other stuff besides home which we land on and a link to the about page
-    - websocket for streaming the text data back to the user
-    
-    
-    */
-    return (
-      <div className='flex flex-col mx-auto bg-gradient-to-br from-colorfulDarkBlue from-10% to-colorfulLightBlue to-100%  w-full justify-center min-h-screen items-center space-x-4'>
-        <Header />
-        <div className='p-10 max-w-fit mx-auto rounded-xl border-colorfulYellow border-2 shadow-lg flex justify-center items-center space-x-4'> 
-          <div className="m-2 p-6 w-fit mx-auto bg-sky-600 rounded-xl border-colorfulPink border-2 shadow-lg flex flex-col items-center space-x-4">
-            <PromptInput />
-          </div>
-          <div>
-            <FileUpload />
-          </div>
+const App = () => {
+  return (
+    <div className="app-container flex flex-col min-h-screen bg-blue-900 text-antique-white">
+      <Header />
+      <div className="flex flex-grow">
+        <div className="flex flex-col items-start p-8">
+          {/* <div className="logo bg-black text-antique-white text-2xl p-4 mb-4">Logo</div> */}
+        </div>
+        <div className="flex-grow flex flex-col items-center justify-center p-8">
+          <FileUpload />
+        </div>
+        <div className="flex flex-col items-end p-8">
+          {/* <h1 className="text-4xl font-bold">Academic Weapon</h1> */}
         </div>
       </div>
-    );
-}
+      <div className="p-8">
+        <PromptInput />
+      </div>
+      <div className="p-8">
+        <ResponseField />
+      </div>
+    </div>
+  );
+};
 
 export default App;

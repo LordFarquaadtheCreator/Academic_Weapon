@@ -3,15 +3,12 @@ import { useState } from "react";
 // for the websocket we would need to change the server from using Quart for async ops to using Flask-SocketIO
 // this is because quart does not support websockets
 
-
-const ResponseField = ({responseData}) => {
-
-    return (
-        <article className='flex flex-col p-6 w-6/12 mx-auto space-x-4 text-pretty text-deepWhite'>
-            <h2 className="text-4xl">Response: </h2>
-            <h3 className="text-xl">{responseData}</h3>
-        </article>
-    );
-}
+const ResponseField = () => {
+  return (
+    <div className="response-field bg-[#E3AFBC] text-[#5D001E] p-6 rounded-lg shadow-md my-4">
+      <p>Response will be shown here.</p>
+    </div>
+  );
+};
 
 export default ResponseField;

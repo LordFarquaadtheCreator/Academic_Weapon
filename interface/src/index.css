@@ -2,18 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  
-  background-color: #0D0D0D;
-
+  background-color: #3D405B;
+  color: #FFF;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom styles */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #3D405B;
+  color: #FFF;
+}
+
+/* .logo {
+  background-color: #000;
+  color: #FFF;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+\ this is not being used anymore since logo is in header 
+.prompt-input-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.prompt-input-container input {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin-right: 1rem;
+}
+
+.prompt-input-container button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background-color: #F4F1DE;
+  color: #F4F1DE;
+  border: 1px solid #F4F1DE;
 }
 
 /* :root {
