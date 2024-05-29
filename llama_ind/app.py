@@ -5,21 +5,26 @@ def main():
     from llama_ind.query_rewrite import generate_queries
 
     try:
-        res = generate_queries(
-            "What's an LDNUM? How can I write a function to generate them. Who wrote the article?"
-        )
+        # res = generate_queries(
+        #     "What is a derivative??"
+        # )
+        res = "What is a derivative?"
         # index = create_db()
         index = get_db_index()
-        query_engine = index.as_retriever(
+        query_engine = index.as_query_engine(
             similarity_top_k=1,
             node_postprocessors=[
                 MetadataReplacementPostProcessor(target_metadata_key="window"),
             ],
+            streaming=True
         )
+        # streaming output:
+        # https://docs.llamaindex.ai/en/stable/module_guides/deploying/query_engine/streaming/
+        streaming_response = query_engine.query(res)
 
-        # query_engine = index.as_query_engine()
-        for ques in res:
-            response = query_engine.retrieve(ques)
+        response = ""
+        for re in streaming_response.response_gen:
+            response += re
             print(response)
 
     except Exception as e:
