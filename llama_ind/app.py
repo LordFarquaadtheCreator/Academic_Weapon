@@ -38,8 +38,7 @@ def main(query: str):
         # prompt
         response = get_llm(query, str(data))
 
-        for r in response:
-            print(r.delta, end="")
+        return response
 
     except Exception as e:
         print("Error!!", e)
