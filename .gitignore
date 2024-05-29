@@ -1,7 +1,6 @@
 # Added by Fahad
 /env
 /faiss_index
-/db 
 *__pycache__*
 *.pdf 
 
