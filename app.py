@@ -22,12 +22,12 @@ async def ws():
         #     await websocket.send(chunk.delta)
 
 @app.route("/query", methods=["GET"])
-def query(query_str):
+def query():
     from llama_ind.app import main
     from quart import request
 
     query_str = request.args.get("query")
-    res = main(query_str)
+    res = main(INDEX, query_str)
 
     return res
 
