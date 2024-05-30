@@ -24,9 +24,9 @@ Academic Weapon allows users/students to upload their specific class resources s
 
 <details>
 <summary>How does it work? </summary>
-## Visualization:
+ Visualization:
 
-![Visualization](Untitled (1).png)
+![Visualization](Untitled(1).png)
 
 
 # THEY NOT LIKE US 
