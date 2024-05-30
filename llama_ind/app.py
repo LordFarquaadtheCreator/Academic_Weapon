@@ -1,3 +1,7 @@
+from llama_ind.timer import timer
+
+
+@timer
 def main(query: str):
     """entry point for RAG"""
     from llama_ind.get_db import get_db_index
@@ -38,9 +42,9 @@ def main(query: str):
 
         # prompt
         response = get_llm(query, str(data))
-        
+
         for res in response:
-            print(res.delta, end='')
+            print(res.delta, end="")
         return response
 
     except Exception as e:
