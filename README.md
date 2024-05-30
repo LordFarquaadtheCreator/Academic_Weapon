@@ -47,7 +47,7 @@ Academic Weapon allows users/students to upload their specific class resources s
 <li> Python 3.10<br>
 <li> An open mind!<br>
 <br>
- Now to run it, you have to :
+ Now to run it, you have to : <br>
  1. Fork the repo onto your computer<br>
  2. Open up a virtual environment <br>
  3. ```pip install -r requirements.txt```<br>
