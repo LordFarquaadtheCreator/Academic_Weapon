@@ -1,3 +1,7 @@
+from llama_ind.timer import timer
+
+
+@timer
 def rerank(data: object):
     """takes in array of documents & sorts based on score - returns window only"""
     try:

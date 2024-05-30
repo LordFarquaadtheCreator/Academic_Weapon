@@ -77,4 +77,7 @@ async def ws():
 
 
 if __name__ == "__main__":
+    from llama_ind.get_db import get_db_index
+
+    INDEX = get_db_index()
     app.run(debug=True)

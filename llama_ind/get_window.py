@@ -1,3 +1,7 @@
+from llama_ind.timer import timer
+
+
+@timer
 def get_window(obj):
     """returns dictionary of window and score"""
     try:

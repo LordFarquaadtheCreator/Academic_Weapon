@@ -1,3 +1,7 @@
+from llama_ind.timer import timer
+
+
+@timer
 def get_db_index():
     """returns db engine as a query engine - sentence window retrevial"""
     import chromadb
