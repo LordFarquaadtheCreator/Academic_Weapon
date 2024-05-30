@@ -2,7 +2,7 @@ from llama_ind.timer import timer
 
 
 @timer
-def main(index, query: str, sync=False):
+def main(index, query: str, sync=False, is_fahad=False):
     """entry point for RAG"""
     from llama_index.core.postprocessor import MetadataReplacementPostProcessor
     from llama_ind.query_rewrite import generate_queries
@@ -11,7 +11,7 @@ def main(index, query: str, sync=False):
     from llama_ind.llm import get_llm
 
     try:
-        res = generate_queries(query)
+        res = generate_queries(query, is_fahad=is_fahad)
 
         query_engine = index.as_retriever(
             similarity_top_k=1,

@@ -28,9 +28,9 @@ def query():
     from quart import request
 
     query_str = request.args.get("query")
-    res = main(INDEX, query_str, sync=True)
+    res = main(INDEX, query_str, sync=True, is_fahad=True)
 
-    return res
+    return str(res)
 
 
 @app.route("/add_to_db", methods=["POST"])
