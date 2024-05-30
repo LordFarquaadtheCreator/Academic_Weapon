@@ -26,8 +26,6 @@ async def db():
 
     try:
         data = await request.get_json()
-        print("data::::::", data)
-
         path = data["path"]
 
         add_to_db(INDEX, path)
