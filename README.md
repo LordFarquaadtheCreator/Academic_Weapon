@@ -7,7 +7,7 @@
 
 
 <details>
-<summary>What does it do? </summary>
+<summary> ## What does it do? </summary>
 Academic Weapon allows users/students to upload their specific class resources such as textbooks, previous homeworks, and even previous exams so that our AI Application can parse through all of the information, vectorize it, and then assist the user. If the question is out of the scope of the vectorized resources, our AI can also web scrape using the BING API in order to gather additional information.
  <br>
  <br>
@@ -23,7 +23,7 @@ Academic Weapon allows users/students to upload their specific class resources s
 <br>
 
 <details>
-<summary>How does it work? </summary>
+<summary> ## How does it work? </summary>
  Visualization:
 
 ![Visualization](https://cdn.discordapp.com/attachments/1208185650440835082/1245833040614391848/Untitled_1.png?ex=665a2fef&is=6658de6f&hm=93a7cdc3ee04b7fe9588edf6eae679c72fc5a973971240fbe338aada68b2f3c4&.png)
