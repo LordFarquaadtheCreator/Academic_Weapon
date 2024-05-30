@@ -11,7 +11,7 @@
 Academic Weapon allows users/students to upload their specific class resources such as textbooks, previous homeworks, and even previous exams so that our AI Application can parse through all of the information, vectorize it, and then assist the user. If the question is out of the scope of the vectorized resources, our AI can also web scrape using the BING API in order to gather additional information.
  <br>
  <br>
-  # Uses 
+  <h3>Uses</h3> 
 <br>
   - Can answer questions such as "what is an eigen vector?"<br>
   - Can create and solve practice problems with the user<br>
@@ -24,10 +24,12 @@ Academic Weapon allows users/students to upload their specific class resources s
 
 <details>
 <summary> <h1> How does it work? </h1> </summary>
- Visualization:
+ <h2>Visualization </h2> 
 
 ![Visualization](https://cdn.discordapp.com/attachments/1208185650440835082/1245833040614391848/Untitled_1.png?ex=665a2fef&is=6658de6f&hm=93a7cdc3ee04b7fe9588edf6eae679c72fc5a973971240fbe338aada68b2f3c4&.png)
 
+
+![Visualization2](https://cdn.discordapp.com/attachments/1208185650440835082/1245836717009932418/Untitled_2.png?ex=665a335b&is=6658e1db&hm=1ccf672f65f0845f032def223cb60900077a2c203d1c8400bd46559e7918a4d0&)
 
 # THEY NOT LIKE US 
 ![Our team for real](https://tenor.com/view/kendrick-lamar-god-is-gangsta-u-ahhh-scream-gif-6349874768192364613.gif)
@@ -52,10 +54,5 @@ Academic Weapon allows users/students to upload their specific class resources s
  4. ```python llama.py```<br>
 
 </details>
-
-# Caution!!!
-- inputs over 512 chars MUST be sent in batches 
-
-
 
 
