@@ -11,7 +11,7 @@
 Academic Weapon allows users/students to upload their specific class resources such as textbooks, previous homeworks, and even previous exams so that our AI Application can parse through all of the information, vectorize it, and then assist the user. If the question is out of the scope of the vectorized resources, our AI can also web scrape using the BING API in order to gather additional information.
  <br>
  <br>
-  #Uses 
+  # Uses 
 <br>
   - Can answer questions such as "what is an eigen vector?"<br>
   - Can create and solve practice problems with the user<br>
@@ -36,24 +36,28 @@ User queries something
 <br>
 <details>
 <summary> What Technologies did we use? </summary>
-Fill in stuff here tomorrow
+<li> 
+</li>
 </details>
 <br>
 <br>
 <details>
 <summary> How to run it on your computer? </summary>
 ### Make sure your computer has these minimum requirements
-<li>1
-<li>2
-<li>3
+<li> Atleast 8 Gigs of Ram, preferrably 16
+<li> Python 3.10
+<li> An open mind!
 <br>
 ### Now to run it, you have to 
-```Fill in commands here```
+ 1. Fork the repo onto your computer
+ 2. Open up a virtual environment 
+ 3. ```pip install -r requirements.txt```
+ 4. ```python llama.py```
 
 </details>
 
 # THEY NOT LIKE US 
-https://tenor.com/view/kendrick-lamar-god-is-gangsta-u-ahhh-scream-gif-6349874768192364613
+![Alt Text](https://tenor.com/view/kendrick-lamar-god-is-gangsta-u-ahhh-scream-gif-6349874768192364613)
 
 # Caution!!!
 - inputs over 512 chars MUST be sent in batches 
