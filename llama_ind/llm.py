@@ -1,7 +1,9 @@
 from llama_index.llms.ollama import Ollama
 from llama_index.core.llms import ChatMessage
+from llama_ind.timer import timer
 
 
+@timer
 def get_llm(query, context):
     llm = Ollama(model="gemma:2b", request_timeout=30.0)
 

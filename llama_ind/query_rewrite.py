@@ -1,3 +1,5 @@
+from llama_ind.timer import timer
+
 QUERY_GEN_TEMPLATE = """\
     You are a helpful assistant that generates multiple search queries for a vector database 
     based on a single input query. These queries must look like incomplete text found in a textbook
@@ -10,6 +12,7 @@ QUERY_GEN_TEMPLATE = """\
 """
 
 
+@timer
 def generate_queries(query: str, num_queries: int = 4):
     from llama_index.core import PromptTemplate
     from llama_index.llms.openai import OpenAI
