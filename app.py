@@ -10,6 +10,7 @@ def hello():
     return "wrong endpoint"
 
 
+# ws/127.0.0.1:5000/ws
 @app.websocket("/ws")
 async def ws():
     while True:

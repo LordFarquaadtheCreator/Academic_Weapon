@@ -1,4 +1,5 @@
 def main(query: str):
+    """entry point for RAG"""
     from llama_ind.get_db import get_db_index
     from llama_ind.init_db import create_db
     from llama_index.core.postprocessor import MetadataReplacementPostProcessor
@@ -10,7 +11,7 @@ def main(query: str):
     # [x] query rewriter -> n-queries
     # [x] n-queries -> database for #m results
     # [x] rerank
-    # prompt
+    # [x] prompt
 
     try:
         res = generate_queries(query)
@@ -37,7 +38,9 @@ def main(query: str):
 
         # prompt
         response = get_llm(query, str(data))
-
+        
+        for res in response:
+            print(res.delta, end='')
         return response
 
     except Exception as e:
