@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ResponseField from './ResponseField';
+import { io } from "socket.io-client";
+
 
 function PromptInput() {
     const [input, setInput] = useState('');
@@ -54,60 +56,62 @@ function PromptInput() {
         setLoading(prevState => !prevState);
         setSubmitingData(prevState => !prevState);
         e.preventDefault();
-        if (ws.readyState === WebSocket.CONNECTING || ws.readyState === WebSocket.OPEN) {
+        // if (ws.readyState === WebSocket.CONNECTING || ws.readyState === WebSocket.OPEN) {
 
-            ws.onopen = () => { //currently only one item at a time is sent over the websocket
-                console.log('Connected to the server');
-                // Array.from(files).forEach(file => {
-                //     const reader = new FileReader();
-                //     reader.onload = function() {
-                //         setTimeout(() => {
-                //             ws.send(this.result);
-                //         }, 1000)
-                //     };
-                //     reader.readAsArrayBuffer(file);
-                // });
-                ws.send(input);
-            };
-            ws.onmessage = (event) => {
-                setLoading(prevState => !prevState);
-                console.log(event.data);
-                setData(event.data);
-                ws.close();
-            };
-            ws.onclose = () => {
-                console.log('Disconnected from the server');
-            };
+        //     ws.onopen = () => { //currently only one item at a time is sent over the websocket
+        //         console.log('Connected to the server');
+        //         ws.send(input);
+        //     };
+        //     ws.onmessage = (event) => {
+        //         setLoading(prevState => !prevState);
+        //         console.log(event.data);
+        //         setData(event.data);
+        //         ws.close();
+        //     };
+        //     ws.onclose = () => {
+        //         console.log('Disconnected from the server');
+        //     };
 
-        }
-        else{ //use the usual route if the websocket is not connecting
-            const form = new FormData();
-            files.forEach(file => {
-                form.append(`multi_files_${files.indexOf(file)}`, file);
-            });
-            form.append('inputBody', input); //add the input to the form data
+            
 
-            axios.post('http://127.0.0.1:5000/upload', form)
-            .then(res => {
-                setInput('');
-                setFiles([]);
-                setFileName([]);
-                setData(res.data)
-                setLoading(prevState => !prevState);
-            })
-            .catch(err => {
-                setLoading(prevState => !prevState);
-                if(err.response){
-                    setData(`Request passed successfully, however, there was an error with the server and responded with status: ${err.response.status}`)
-                }
-                else if(err.request){
-                    setData(`Request was made but no response was received. Error: ${err.message}`)
-                }
-                else{
-                    setData(`There was an error, please try again later`)
-                }
-            });
-        }
+        // }
+        axios.post('http://127.0.0.1:5000/add_to_db', form)
+        .then(res => {
+            setInput('');
+            setFiles([]);
+            setFileName([]);
+            setData(res.data)
+            setLoading(prevState => !prevState);
+        })
+        .catch(err => {
+            setLoading(prevState => !prevState);
+            if(err.response){
+                setData(`Request passed successfully, however, there was an error with the server and responded with status: ${err.response.status}`)
+            }
+            else if(err.request){
+                setData(`Request was made but no response was received. Error: ${err.message}`)
+            }
+            else{
+                setData(`There was an error, please try again later`)
+            }
+        });
+        const socket = io("http://127.0.0.1:5000");
+
+
+        socket.emit('message', input) // sending the data
+        socket.on('message', (res) => { //listening
+            setLoading(prevState => !prevState); //
+            console.log(res);
+            const streamedRes = [];
+            streamedRes.push(res);
+            setData(streamedRes.join(' '));
+        });
+
+        const form = new FormData();
+        files.forEach(file => {
+            form.append(`multi_files_${files.indexOf(file)}`, file);
+        });
+        form.append('inputBody', input); //add the input to the form data   
     }
 
     
