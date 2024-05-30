@@ -1,21 +1,22 @@
-from quart import Quart, websocket
-from quart_cors import cors
-
 from flask import Flask
 from flask_socketio import SocketIO
+from flask_cors import CORS, cross_origin
 
-# app = cors(Quart(__name__), allow_origin="*")
 app = Flask(__name__)
+cors = CORS(app)
+app.config["CORS_HEADERS"] = "Content-Type"
 socketio = SocketIO(app)
 
 
 @app.route("/")
+@cross_origin()
 def hello():
     return "wrong endpoint"
 
 
 # socket.io connection
 @socketio.on("message")
+@cross_origin()
 def handle_message(message):
     from flask_socketio import emit
     from llama_ind.app import main
@@ -27,6 +28,7 @@ def handle_message(message):
 
 
 @app.route("/query", methods=["GET"])
+@cross_origin()
 def query():
     from llama_ind.app import main
     from quart import request
@@ -38,6 +40,7 @@ def query():
 
 
 @app.route("/add_to_db", methods=["POST"])
+@cross_origin()
 async def db():
     from quart import request, jsonify
     from llama_ind.add_to_db import add_to_db
