@@ -1,6 +1,6 @@
 from quart import Quart, request, make_response, websocket
 from quart import Quart, request, websocket
-from llama_ind.app import main
+# from llama_ind.app import main
 from quart_cors import cors
 import os
 import asyncio
@@ -49,7 +49,6 @@ async def send_message(): #whatever you want to be returned to the client goes h
 async def recieve_message() -> None:
     data = await websocket.receive()
     print(data, type(data))
-    websocket.
     
 
 async def close_connection():
@@ -77,7 +76,7 @@ async def ws():
 
 
 if __name__ == "__main__":
-    from llama_ind.get_db import get_db_index
+    # from llama_ind.get_db import get_db_index
 
-    INDEX = get_db_index()
+    # INDEX = get_db_index()
     app.run(debug=True)
