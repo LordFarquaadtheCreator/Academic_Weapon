@@ -2,7 +2,7 @@ from llama_ind.timer import timer
 
 
 @timer
-def main(index, query: str, sync=False, is_fahad=False):
+def main(index, query: str, sync=False, is_fahad=True):
     """entry point for RAG"""
     from llama_index.core.postprocessor import MetadataReplacementPostProcessor
     from llama_ind.query_rewrite import generate_queries
