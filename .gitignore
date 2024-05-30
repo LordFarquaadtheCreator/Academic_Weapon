@@ -1,6 +1,8 @@
 # Added by Fahad
 /env
 /faiss_index
+*__pycache__*
+*.pdf 
 
 # remove test file and pycache
 test_search.py

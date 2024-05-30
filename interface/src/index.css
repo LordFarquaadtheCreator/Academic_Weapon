@@ -15,14 +15,7 @@
 }
 
 /* Custom styles */
-.app-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: #3D405B;
-  color: #FFF;
-}
-
+ 
 /* .logo {
   background-color: #000;
   color: #FFF;
@@ -32,9 +25,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-} */
-\ this is not being used anymore since logo is in header 
-.prompt-input-container {
+} */ 
+/* .prompt-input-container {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -53,7 +45,7 @@
   background-color: #F4F1DE;
   color: #F4F1DE;
   border: 1px solid #F4F1DE;
-}
+} */
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

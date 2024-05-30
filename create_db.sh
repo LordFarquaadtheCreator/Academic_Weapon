@@ -1,0 +1,1 @@
+python3 llama_ind/init_db.py
