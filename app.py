@@ -1,5 +1,4 @@
 from quart import Quart, websocket
-from llama_ind.app import main
 from quart_cors import cors
 
 app = cors(Quart(__name__), allow_origin="*")
@@ -13,11 +12,24 @@ def hello():
 # ws/127.0.0.1:5000/ws
 @app.websocket("/ws")
 async def ws():
+    from llama_ind.app import main
+
     while True:
         query = await websocket.receive()
-        async for chunk in main(INDEX, query):
-            await websocket.send(chunk.delta)
+        async for chunk in query:
+            await websocket.send(chunk)
+        # async for chunk in main(INDEX, query):
+        #     await websocket.send(chunk.delta)
 
+@app.route("/query", methods=["GET"])
+def query(query_str):
+    from llama_ind.app import main
+    from quart import request
+
+    query_str = request.args.get("query")
+    res = main(query_str)
+
+    return res
 
 @app.route("/add_to_db", methods=["POST"])
 async def db():
