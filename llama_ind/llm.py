@@ -4,7 +4,7 @@ from llama_ind.timer import timer
 
 
 @timer
-def get_llm(query, context):
+def get_llm(query, context, sync=False):
     llm = Ollama(model="gemma:2b", request_timeout=30.0)
 
     messages = [
@@ -16,4 +16,4 @@ def get_llm(query, context):
         ChatMessage(role="user", content=query),
     ]
 
-    return llm.stream_chat(messages)
+    return llm.chat(messages) if sync else llm.stream_chat(messages)

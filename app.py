@@ -21,15 +21,17 @@ async def ws():
         # async for chunk in main(INDEX, query):
         #     await websocket.send(chunk.delta)
 
+
 @app.route("/query", methods=["GET"])
 def query():
     from llama_ind.app import main
     from quart import request
 
     query_str = request.args.get("query")
-    res = main(INDEX, query_str)
+    res = main(INDEX, query_str, sync=True)
 
     return res
+
 
 @app.route("/add_to_db", methods=["POST"])
 async def db():
