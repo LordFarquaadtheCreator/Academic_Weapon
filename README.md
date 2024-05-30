@@ -26,7 +26,7 @@ Academic Weapon allows users/students to upload their specific class resources s
 <summary>How does it work? </summary>
  Visualization:
 
-![Visualization](Untitled(1).png)
+![Visualization](https://cdn.discordapp.com/attachments/1208185650440835082/1245833040614391848/Untitled_1.png?ex=665a2fef&is=6658de6f&hm=93a7cdc3ee04b7fe9588edf6eae679c72fc5a973971240fbe338aada68b2f3c4&.png)
 
 
 # THEY NOT LIKE US 
@@ -39,12 +39,13 @@ Academic Weapon allows users/students to upload their specific class resources s
 <br>
 <br>
 <summary> How to run it on your computer? </summary>
-### Make sure your computer has these minimum requirements<br>
+
+ Make sure your computer has these minimum requirements<br>
 <li> Atleast 8 Gigs of Ram, preferrably 16 <br>
 <li> Python 3.10<br>
 <li> An open mind!<br>
 <br>
-### Now to run it, you have to 
+ Now to run it, you have to :
  1. Fork the repo onto your computer<br>
  2. Open up a virtual environment <br>
  3. ```pip install -r requirements.txt```<br>
