@@ -40,7 +40,7 @@ Academic Weapon allows users/students to upload their specific class resources s
 </details>
 <br>
 <br>
-<summary> How to run it on your computer? </summary>
+<summary> <h2>How to run it on your computer?</h2> </summary>
 
  Make sure your computer has these minimum requirements<br>
 <li> Atleast 8 Gigs of Ram, preferrably 16 <br>
