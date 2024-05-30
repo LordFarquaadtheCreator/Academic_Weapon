@@ -2,7 +2,8 @@ from quart import Quart, request, make_response, websocket
 from quart import Quart, request, websocket
 # from llama_ind.app import main
 from quart_cors import cors
-
+import asyncio
+import os
 from flask import Flask
 from flask_socketio import SocketIO
 
@@ -90,6 +91,7 @@ def query(message):
 #     return jsonify(success=True)
 # except Exception as e:
 #     return jsonify(error=str(e)), 400
+
 @app.route("/upload", methods=["POST"]) #for the most part the posting of the file is done just need a location for the file to be stored for the moment before being passed into the vector store.
 async def upload():
     PATH = os.path.join(os.getcwd(), "uploads")
@@ -105,8 +107,14 @@ async def upload():
         file_payload = await request.files #recieve the file parts of the form
 
         if len(text_payload) > 0:
+            from llama_ind.app import main
+
             for key, data in text_payload.items(): ##here is where we want to process and save the data...
                 print(key, data)
+                res = main(INDEX, data)  # streamer
+                
+
+            
         if len(file_payload) > 0:
             for key, currFile in file_payload.items(): ##here is where we want to cache the data
                 print(key, currFile)
@@ -139,16 +147,6 @@ async def ws():
     await asyncio.gather(sender, reciever)
 
 # https://pgjones.gitlab.io/quart/how_to_guides/websockets.html
-
-
-
-# @app.websocket("/ws")
-# async def ws():
-#     while True:
-#         query = await websocket.receive()
-#         await websocket.send(f'The websocket connection was successfule with the query: {query}')
-#         async for chunk in main(query):
-#             await websocket.send(chunk.delta)
 
 
 if __name__ == "__main__":
