@@ -57,7 +57,7 @@ User queries something
 </details>
 
 # THEY NOT LIKE US 
-![Alt Text](https://tenor.com/view/kendrick-lamar-god-is-gangsta-u-ahhh-scream-gif-6349874768192364613)
+![Our team for real](https://tenor.com/view/kendrick-lamar-god-is-gangsta-u-ahhh-scream-gif-6349874768192364613.gif)
 
 # Caution!!!
 - inputs over 512 chars MUST be sent in batches 
