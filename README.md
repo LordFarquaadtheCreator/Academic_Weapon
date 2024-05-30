@@ -25,8 +25,12 @@ Academic Weapon allows users/students to upload their specific class resources s
 <details>
 <summary>How does it work? </summary>
 ## Visualization:
-User queries something 
-&darr
+
+
+
+
+# THEY NOT LIKE US 
+![Our team for real](https://tenor.com/view/kendrick-lamar-god-is-gangsta-u-ahhh-scream-gif-6349874768192364613.gif)
 
 - file `chroma.py` contains all vector database related functions
 - it vectories all inputs, queries it against the database and returns `n` relevant data points (max 512 chars)
@@ -34,30 +38,19 @@ User queries something
 </details>
 <br>
 <br>
-<details>
-<summary> What Technologies did we use? </summary>
-<li> 
-</li>
-</details>
-<br>
-<br>
-<details>
 <summary> How to run it on your computer? </summary>
-### Make sure your computer has these minimum requirements
-<li> Atleast 8 Gigs of Ram, preferrably 16
-<li> Python 3.10
-<li> An open mind!
+### Make sure your computer has these minimum requirements<br>
+<li> Atleast 8 Gigs of Ram, preferrably 16 <br>
+<li> Python 3.10<br>
+<li> An open mind!<br>
 <br>
 ### Now to run it, you have to 
- 1. Fork the repo onto your computer
- 2. Open up a virtual environment 
- 3. ```pip install -r requirements.txt```
- 4. ```python llama.py```
+ 1. Fork the repo onto your computer<br>
+ 2. Open up a virtual environment <br>
+ 3. ```pip install -r requirements.txt```<br>
+ 4. ```python llama.py```<br>
 
 </details>
-
-# THEY NOT LIKE US 
-![Our team for real](https://tenor.com/view/kendrick-lamar-god-is-gangsta-u-ahhh-scream-gif-6349874768192364613.gif)
 
 # Caution!!!
 - inputs over 512 chars MUST be sent in batches 
