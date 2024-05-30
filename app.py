@@ -2,11 +2,13 @@ from quart import Quart, request, make_response, websocket
 from quart import Quart, request, websocket
 # from llama_ind.app import main
 from quart_cors import cors
-import os
-import asyncio
 
+from flask import Flask
+from flask_socketio import SocketIO
 
-app = cors(Quart(__name__), allow_origin="*")
+# app = cors(Quart(__name__), allow_origin="*")
+app = Flask(__name__)
+socketio = SocketIO(app)
 
 
 @app.route("/")
@@ -14,6 +16,80 @@ def hello():
     return "wrong endpoint"
 
 
+# ws/127.0.0.1:5000/ws
+# @app.websocket("/ws")
+# async def ws():
+#     from llama_ind.app import main
+
+#     while True:
+#         query = await websocket.receive()
+#         async for chunk in query:
+#             await websocket.send(chunk)
+#         # async for chunk in main(INDEX, query):
+#         #     await websocket.send(chunk.delta)
+
+
+# @app.websocket("/ws")
+# async def ws():
+#     while True:
+#         query = await websocket.receive()
+#         async for chunk in query:
+#             await websocket.send(chunk)
+
+
+@socketio.on("message")
+def handle_message(message):
+    from flask_socketio import emit
+    from llama_ind.app import main
+
+    res = main(INDEX, message, sync=False, is_fahad=True)  # streamer
+
+    for chunk in res:
+        # print(chunk.delta, end="")
+        emit(chunk.delta)
+
+
+@socketio.on("query")
+def query(message):
+    from flask_socketio import send
+
+    # from llama_ind.app import main
+
+    # print(message)
+    # # res = main(INDEX, message, sync=False, is_fahad=True)  # streamer
+
+    # # for chunk in res:
+    # #     send(chunk)
+    send(message)
+
+    # return
+
+
+# @app.route("/query", methods=["GET"])
+# def query():
+#     from llama_ind.app import main
+#     from quart import request
+
+#     query_str = request.args.get("query")
+#     res = main(INDEX, query_str, sync=True, is_fahad=True)
+
+#     return str(res)
+
+
+# @app.route("/add_to_db", methods=["POST"])
+# async def db():
+# from quart import request, jsonify
+# from llama_ind.add_to_db import add_to_db
+
+# try:
+#     data = await request.get_json()
+#     path = data["path"]
+
+#     add_to_db(INDEX, path)
+
+#     return jsonify(success=True)
+# except Exception as e:
+#     return jsonify(error=str(e)), 400
 @app.route("/upload", methods=["POST"]) #for the most part the posting of the file is done just need a location for the file to be stored for the moment before being passed into the vector store.
 async def upload():
     PATH = os.path.join(os.getcwd(), "uploads")
@@ -79,4 +155,5 @@ if __name__ == "__main__":
     # from llama_ind.get_db import get_db_index
 
     # INDEX = get_db_index()
-    app.run(debug=True)
+    # app.run(debug=True)
+    socketio.run(app, debug=True)

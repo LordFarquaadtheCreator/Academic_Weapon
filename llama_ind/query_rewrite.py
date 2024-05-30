@@ -21,21 +21,25 @@ QUERRY_WRAPPER_PROMPT = PromptTemplate(
 
 
 @timer
-def generate_queries(query: str, num_queries: int = 4):
+def generate_queries(query: str, num_queries: int = 4, is_fahad=False):
     from llama_index.llms.huggingface import HuggingFaceLLM
+    from llama_index.llms.ollama import Ollama
     import torch
 
-    llm = HuggingFaceLLM(
-        context_window=514,
-        max_new_tokens=256,
-        generate_kwargs={"temperature": 0.25, "do_sample": True},
-        query_wrapper_prompt=QUERRY_WRAPPER_PROMPT,
-        tokenizer_name="BAAI/bge-reranker-base",
-        model_name="BAAI/bge-reranker-base",
-        device_map="auto",
-        tokenizer_kwargs={"max_length": 514},
-        model_kwargs={"torch_dtype": torch.float16},  # may or may not work on mac
-    )
+    if not is_fahad:
+        llm = HuggingFaceLLM(
+            context_window=514,
+            max_new_tokens=256,
+            generate_kwargs={"temperature": 0.25, "do_sample": True},
+            query_wrapper_prompt=QUERRY_WRAPPER_PROMPT,
+            tokenizer_name="BAAI/bge-reranker-base",
+            model_name="BAAI/bge-reranker-base",
+            device_map="auto",
+            tokenizer_kwargs={"max_length": 514},
+            model_kwargs={"torch_dtype": torch.float16},  # may or may not work on mac
+        )
+    else:
+        llm = Ollama(model="gemma:2b")
 
     response = llm.predict(QUERY_GEN_PROMPT, num_queries=num_queries, query=query)
     queries = response.split("\n")
