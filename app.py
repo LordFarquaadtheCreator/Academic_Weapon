@@ -14,27 +14,7 @@ def hello():
     return "wrong endpoint"
 
 
-# ws/127.0.0.1:5000/ws
-# @app.websocket("/ws")
-# async def ws():
-#     from llama_ind.app import main
-
-#     while True:
-#         query = await websocket.receive()
-#         async for chunk in query:
-#             await websocket.send(chunk)
-#         # async for chunk in main(INDEX, query):
-#         #     await websocket.send(chunk.delta)
-
-
-# @app.websocket("/ws")
-# async def ws():
-#     while True:
-#         query = await websocket.receive()
-#         async for chunk in query:
-#             await websocket.send(chunk)
-
-
+# socket.io connection
 @socketio.on("message")
 def handle_message(message):
     from flask_socketio import emit
@@ -43,56 +23,38 @@ def handle_message(message):
     res = main(INDEX, message, sync=False, is_fahad=True)  # streamer
 
     for chunk in res:
-        # print(chunk.delta, end="")
-        emit(chunk.delta)
+        emit("message", chunk.delta)
 
 
-@socketio.on("query")
-def query(message):
-    from flask_socketio import send
+@app.route("/query", methods=["GET"])
+def query():
+    from llama_ind.app import main
+    from quart import request
 
-    # from llama_ind.app import main
+    query_str = request.args.get("query")
+    res = main(INDEX, query_str, sync=True, is_fahad=True)
 
-    # print(message)
-    # # res = main(INDEX, message, sync=False, is_fahad=True)  # streamer
-
-    # # for chunk in res:
-    # #     send(chunk)
-    send(message)
-
-    # return
+    return str(res)
 
 
-# @app.route("/query", methods=["GET"])
-# def query():
-#     from llama_ind.app import main
-#     from quart import request
+@app.route("/add_to_db", methods=["POST"])
+async def db():
+    from quart import request, jsonify
+    from llama_ind.add_to_db import add_to_db
 
-#     query_str = request.args.get("query")
-#     res = main(INDEX, query_str, sync=True, is_fahad=True)
+    try:
+        data = await request.get_json()
+        path = data["path"]
 
-#     return str(res)
+        add_to_db(INDEX, path)
 
-
-# @app.route("/add_to_db", methods=["POST"])
-# async def db():
-# from quart import request, jsonify
-# from llama_ind.add_to_db import add_to_db
-
-# try:
-#     data = await request.get_json()
-#     path = data["path"]
-
-#     add_to_db(INDEX, path)
-
-#     return jsonify(success=True)
-# except Exception as e:
-#     return jsonify(error=str(e)), 400
+        return jsonify(success=True)
+    except Exception as e:
+        return jsonify(error=str(e)), 400
 
 
 if __name__ == "__main__":
     from llama_ind.get_db import get_db_index
 
     INDEX = get_db_index()
-    # app.run(debug=True)
     socketio.run(app, debug=True)
