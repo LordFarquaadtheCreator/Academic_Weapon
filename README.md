@@ -7,9 +7,24 @@
 
 
 <details>
-<summary> How does it work? </summary>
-Fill in stuff here tomorrow or use 
+<summary>What does it do? </summary>
+Academic Weapon allows users/students to upload their specific class resources such as textbooks, previous homeworks, and even previous exams so that our AI Application can parse through all of the information, vectorize it, and then assist the user. If the question is out of the scope of the vectorized resources, our AI can also web scrape using the BING API in order to gather additional information.
+  **Uses**
+  - Can answer questions such as "what is an eigen vector?"
+  - Can create and solve practice problems with the user
+  - Can teach topics from the textbook or even out of the scope of the textbook using web scraping!
 <br>
+
+</details>
+
+<br>
+
+details>
+<summary>How does it work? </summary>
+## Visualization:
+User queries something 
+&darr
+
 - file `chroma.py` contains all vector database related functions
 - it vectories all inputs, queries it against the database and returns `n` relevant data points (max 512 chars)
 - this data is sent to GPT to be included as context for the user's prompt
@@ -33,6 +48,9 @@ Fill in stuff here tomorrow
 ```Fill in commands here```
 
 </details>
+
+# THEY NOT LIKE US 
+https://tenor.com/view/kendrick-lamar-god-is-gangsta-u-ahhh-scream-gif-6349874768192364613
 
 # Caution!!!
 - inputs over 512 chars MUST be sent in batches 
