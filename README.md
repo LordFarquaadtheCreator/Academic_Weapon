@@ -11,11 +11,11 @@
 Academic Weapon allows users/students to upload their specific class resources such as textbooks, previous homeworks, and even previous exams so that our AI Application can parse through all of the information, vectorize it, and then assist the user. If the question is out of the scope of the vectorized resources, our AI can also web scrape using the BING API in order to gather additional information.
  <br>
  <br>
-  **Uses** 
+  #Uses 
 <br>
-  - Can answer questions such as "what is an eigen vector?"
-  - Can create and solve practice problems with the user
-  - Can teach topics from the textbook or even out of the scope of the textbook using web scraping!
+  - Can answer questions such as "what is an eigen vector?"<br>
+  - Can create and solve practice problems with the user<br>
+  - Can teach topics from the textbook or even out of the scope of the textbook using web scraping!<br>
 <br>
 
 </details>
